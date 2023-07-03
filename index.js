@@ -1,11 +1,10 @@
-//express serverc
 const express = require("express");
-const app = express();
-const listener = app.listen(process.env.PORT || 3000 , ()=>{
-    console.log("app is listening at port:" + listener.address().port);
+const App = express();
+const listener = App.listen(process.env.PORT || 3000 , ()=>{
+    console.log("Server is listening on port:" + listener.address().port);
 })
-
 require("dotenv").config();
+const cors = require("cors");
 
 //connect to mdb
 const mongoose = require('mongoose');
@@ -16,7 +15,7 @@ const db = mongoose.connect(process.env.MONGO_URI,(err)=>{
 
 
 //fetch a file
-app.use(express.static('public'));
+app.use(express.static('views'));
 app.get('/',(req,res)=>{
     res.sendFile(__dirname + '/views/index.html');
 })
